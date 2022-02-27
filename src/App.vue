@@ -201,7 +201,7 @@ export default {
   },
   data (){
     return {
-      workingSet: [0, 1],
+      workingSet: [],
       entities
     }
   }
