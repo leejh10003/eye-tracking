@@ -1,12 +1,20 @@
 <template>
-<div>
-  <div v-if="current.length === 4">length 4</div>
-  <div v-if="current.length === 3">length 3</div>
-  <div v-if="current.length === 2">length 2</div>
+<div v-if="!!current.children">
+  <div style="height: calc(2em + 10px); margin: 0; padding: 0">{{sentence}}</div>
+  <el-row v-for="(row, rowIndex) in align" :key="rowIndex">
+    <el-col v-for="columnIndex in row" :span="spanForCurrent" :key="columnIndex">
+      <el-button :style="{width: `${100 / align[0].length}vw`, height: `calc(${100 / align.length}vh - ${2 / align.length}em - ${22 / align.length}px)`}" @click="(e) => click(rowIndex, columnIndex)">{{itemFromIndex(rowIndex, columnIndex).name}}</el-button>
+    </el-col>
+  </el-row>
+</div>
+<div v-else>
+  {{sentence}}
 </div>
 </template>
-
+<style>
+</style>
 <script>
+import _ from 'lodash'
 const entities = [{
   name: '상반신',
   children: [{
@@ -137,10 +145,63 @@ const entities = [{
 }]
 export default {
   name: 'App',
+  computed: {
+    current() {
+      var current = _.cloneDeep({
+        children: this.entities
+      })
+      for (var i = 0; i < this.workingSet.length; i++) {
+        current = _.cloneDeep(current.children[this.workingSet[i]])
+      }
+      return current
+    },
+    sentence(){
+      var toReturn = []
+      var current = _.cloneDeep({
+        children: this.entities
+      })
+      for (var i = 0; i < this.workingSet.length; i++) {
+        if (toReturn.length < 1 || current.children[this.workingSet[i]].replace !== true){
+          toReturn.push(current.children[this.workingSet[i]].name)
+        } else {
+          toReturn[toReturn.length - 1] = current.children[this.workingSet[i]].name
+        }
+        current = _.cloneDeep(current.children[this.workingSet[i]])
+      }
+      return toReturn.join(' ')
+    },
+    spanForCurrent(){
+      if (this.current.children.length === 3){
+        return 8
+      } else {
+        return 12
+      }
+    },
+    align(){
+      if (this.current.children.length === 4){
+        return [[0, 1], [0, 1]]
+      } else if (this.current.children.length === 3) {
+        return [[0, 1, 2]]
+      } else {
+        return [[0, 1]]
+      }
+    }
+  },
+  methods: {
+    click(rowIndex, colIndex){
+      console.log(rowIndex, colIndex)
+      this.workingSet.push(this.restoreIndex(rowIndex, colIndex))
+    },
+    restoreIndex(rowIndex, columnIndex){
+      return rowIndex * this.align[0].length + columnIndex
+    },
+    itemFromIndex(rowIndex, columnIndex){
+      return this.current.children[this.restoreIndex(rowIndex, columnIndex)]
+    }
+  },
   data (){
     return {
-      workingSet: [],
-      current: entities,
+      workingSet: [0, 1],
       entities
     }
   }
