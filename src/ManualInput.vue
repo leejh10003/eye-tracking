@@ -5,7 +5,6 @@
     </div>
     <div style="width: 100vw">
       <el-row style="display: flex; justify-content: center;">
-        <el-button class="key" @click="clear">ⓧ</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㅂ'))">{{shiftPressedKey('ㅂ')}}</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㅈ'))">{{shiftPressedKey('ㅈ')}}</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㄷ'))">{{shiftPressedKey('ㄷ')}}</el-button>
@@ -19,6 +18,7 @@
         <el-button class="key" @click="erase">⌫</el-button>
       </el-row>
       <el-row style="display: flex; justify-content: center">
+        <el-button class="key" @click="clear">ⓧ</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㅁ'))">{{shiftPressedKey('ㅁ')}}</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㄴ'))">{{shiftPressedKey('ㄴ')}}</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㅇ'))">{{shiftPressedKey('ㅇ')}}</el-button>
