@@ -8,6 +8,7 @@
         <el-button class="key" @click="clear">ⓧ</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㅂ'))">{{shiftPressedKey('ㅂ')}}</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㅈ'))">{{shiftPressedKey('ㅈ')}}</el-button>
+        <el-button class="key" @click="keyPress(shiftPressedKey('ㄷ'))">{{shiftPressedKey('ㄷ')}}</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㄱ'))">{{shiftPressedKey('ㄱ')}}</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㅅ'))">{{shiftPressedKey('ㅅ')}}</el-button>
         <el-button class="key" @click="keyPress(shiftPressedKey('ㅛ'))">{{shiftPressedKey('ㅛ')}}</el-button>
